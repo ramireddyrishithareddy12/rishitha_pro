@@ -1,0 +1,587 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Rishitha Reddy Ramireddy | Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Poppins', 'Inter', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: #1e293b;
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #3b82f6;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #2563eb;
+        }
+
+        /* Navigation */
+        nav {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 1rem 2rem;
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: #334155;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        .nav-links a:hover {
+            color: #3b82f6;
+        }
+        .hamburger {
+            display: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 4rem 1rem;
+            background: white;
+            border-radius: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 20px 25px -12px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(59,130,246,0.05) 0%, transparent 70%);
+            z-index: 0;
+        }
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #0f172a;
+            position: relative;
+        }
+        .hero h2 {
+            font-size: 1.3rem;
+            font-weight: 500;
+            color: #475569;
+            margin-bottom: 1rem;
+        }
+        .contact-badge {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            margin: 1.5rem 0;
+            font-size: 0.95rem;
+            color: #334155;
+        }
+        .contact-badge span {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .btn {
+            display: inline-block;
+            background: #3b82f6;
+            color: white;
+            padding: 0.75rem 1.8rem;
+            border-radius: 2rem;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+        .btn:hover {
+            background: #2563eb;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(59,130,246,0.4);
+        }
+        .btn-outline {
+            background: transparent;
+            border: 2px solid #3b82f6;
+            color: #3b82f6;
+        }
+        .btn-outline:hover {
+            background: #3b82f6;
+            color: white;
+        }
+
+        /* Section Styles */
+        .section {
+            background: white;
+            border-radius: 1.5rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s;
+        }
+        .section:hover {
+            transform: translateY(-3px);
+        }
+        .section-title {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            border-left: 5px solid #3b82f6;
+            padding-left: 1rem;
+            color: #0f172a;
+        }
+
+        /* Education Cards */
+        .education-item {
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: #f8fafc;
+            border-radius: 1rem;
+        }
+        .edu-title {
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: #1e293b;
+        }
+        .edu-detail {
+            color: #475569;
+            margin-top: 0.3rem;
+        }
+        .percentage {
+            font-weight: 600;
+            color: #3b82f6;
+        }
+
+        /* Skills Grid */
+        .skills-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+        }
+        .skill-tag {
+            background: linear-gradient(135deg, #e0e7ff, #c7d2fe);
+            color: #3730a3;
+            padding: 0.5rem 1.2rem;
+            border-radius: 2rem;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        /* Projects Grid */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        .project-card {
+            background: #f8fafc;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            transition: all 0.3s;
+            border: 1px solid #e2e8f0;
+        }
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            border-color: #3b82f6;
+        }
+        .project-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.8rem;
+        }
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 1rem 0;
+        }
+        .tech-badge {
+            background: #e2e8f0;
+            padding: 0.2rem 0.8rem;
+            border-radius: 1rem;
+            font-size: 0.75rem;
+        }
+        .project-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        .project-links a {
+            text-decoration: none;
+            font-size: 0.9rem;
+            color: #3b82f6;
+        }
+
+        /* Contact Form */
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .form-group {
+            margin-bottom: 1.2rem;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 0.8rem;
+            font-family: inherit;
+            transition: all 0.3s;
+        }
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59,130,246,0.1);
+        }
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #10b981;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.2);
+            z-index: 1100;
+            animation: slideIn 0.3s ease;
+        }
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background: #0f172a;
+            color: #94a3b8;
+            border-radius: 1.5rem 1.5rem 0 0;
+            margin-top: 2rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                width: 100%;
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+                padding: 1rem 0;
+            }
+            .nav-links.active {
+                display: flex;
+            }
+            .hamburger {
+                display: block;
+            }
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            .container {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="nav-container">
+        <div class="logo">✨ Rishitha Reddy</div>
+        <div class="hamburger" id="hamburger">☰</div>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#education">Education</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </div>
+</nav>
+
+<main class="container">
+    <!-- Hero / Profile Section -->
+    <section id="home" class="hero">
+        <h1>Rishitha Reddy Ramireddy</h1>
+        <h2>Engineering Undergraduate | Tech Enthusiast | Problem Solver</h2>
+        <div class="contact-badge">
+            <span>📧 ramireddyrishithareddy19@gmail.com</span>
+            <span>📞 9996657499</span>
+            <span>💻 GitHub: <a href="#" style="color:#3b82f6">github.com/rishitha</a></span>
+            <span>🔗 LinkedIn: <a href="#" style="color:#3b82f6">linkedin.com/in/rishitha</a></span>
+        </div>
+        <p style="max-width: 700px; margin: 1rem auto;">Motivated and detail-oriented undergraduate student with strong foundation in C, Data Structures, and emerging interest in Prompt Engineering. Eager to contribute to real-world projects and grow in technology.</p>
+        <a href="#contact" class="btn">📬 Get In Touch</a>
+        <a href="#projects" class="btn btn-outline">🚀 View Work</a>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education" class="section">
+        <h2 class="section-title">📖 Education</h2>
+        <div class="education-item">
+            <div class="edu-title">🎓 Bachelor's Degree (Pursuing)</div>
+            <div class="edu-detail">Gouthami Institute of Technology and Management for Women</div>
+        </div>
+        <div class="education-item">
+            <div class="edu-title">📚 Intermediate (11th-12th)</div>
+            <div class="edu-detail">Narayana College, Nellore | <span class="percentage">Percentage: 93.3%</span></div>
+        </div>
+        <div class="education-item">
+            <div class="edu-title">🏆 10th Standard</div>
+            <div class="edu-detail">Sri Chaitanya School | <span class="percentage">Percentage: 97%</span></div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="section">
+        <h2 class="section-title">⚙️ Technical & Soft Skills</h2>
+        <div class="skills-grid">
+            <span class="skill-tag">C Programming</span>
+            <span class="skill-tag">Data Structures (Basic)</span>
+            <span class="skill-tag">Prompt Engineering</span>
+            <span class="skill-tag">HTML/CSS/JavaScript</span>
+            <span class="skill-tag">Flask (Basic)</span>
+            <span class="skill-tag">Problem Solving</span>
+        </div>
+        <h3 style="margin: 1.5rem 0 0.8rem 0;">💬 Soft Skills</h3>
+        <div class="skills-grid">
+            <span class="skill-tag">Communication</span>
+            <span class="skill-tag">Team Collaboration</span>
+            <span class="skill-tag">Time Management</span>
+            <span class="skill-tag">Adaptability</span>
+        </div>
+        <h3 style="margin: 1.5rem 0 0.8rem 0;">🏸 Hobbies & Interests</h3>
+        <div class="skills-grid">
+            <span class="skill-tag">Playing Badminton</span>
+            <span class="skill-tag">Reading Tech Blogs</span>
+            <span class="skill-tag">Open Source</span>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="section">
+        <h2 class="section-title">🚀 Projects</h2>
+        <div class="projects-grid" id="projectsGrid">
+            <!-- Dynamically rendered from Flask backend -->
+        </div>
+    </section>
+
+    <!-- Certifications -->
+    <section class="section">
+        <h2 class="section-title">📜 Certifications</h2>
+        <div class="skills-grid">
+            <span class="skill-tag">🏅 Participation Certificate - Code Buster</span>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section">
+        <h2 class="section-title">📬 Contact Me</h2>
+        <div class="contact-form">
+            <form id="contactForm">
+                <div class="form-group">
+                    <input type="text" id="name" placeholder="Your Name" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" id="email" placeholder="Your Email" required>
+                </div>
+                <div class="form-group">
+                    <textarea id="message" rows="5" placeholder="Your Message..." required></textarea>
+                </div>
+                <button type="submit" class="btn" style="width: 100%;">Send Message ✨</button>
+            </form>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <p>© 2025 Rishitha Reddy Ramireddy | Built with Flask & ❤️ | Portfolio Showcase</p>
+</footer>
+
+<script>
+    // Projects data - using Flask passed data
+    const projectsFromFlask = {{ projects | tojson }};
+    
+    function renderProjects() {
+        const container = document.getElementById('projectsGrid');
+        if (!container) return;
+        
+        if (projectsFromFlask.length === 0) {
+            container.innerHTML = '<p>No projects to display yet. Check back soon!</p>';
+            return;
+        }
+        
+        let html = '';
+        projectsFromFlask.forEach(project => {
+            html += `
+                <div class="project-card">
+                    <div class="project-title">${escapeHtml(project.title)}</div>
+                    <p>${escapeHtml(project.description)}</p>
+                    <div class="project-tech">
+                        ${project.technologies.map(tech => `<span class="tech-badge">${escapeHtml(tech)}</span>`).join('')}
+                    </div>
+                    <div class="project-links">
+                        <a href="${project.github_link}" target="_blank">🔗 GitHub</a>
+                        <a href="${project.live_link}" target="_blank">🌐 Live Demo</a>
+                    </div>
+                </div>
+            `;
+        });
+        container.innerHTML = html;
+    }
+    
+    function escapeHtml(str) {
+        if (!str) return '';
+        return str.replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
+        });
+    }
+    
+    // Contact form submission with fetch API
+    const contactForm = document.getElementById('contactForm');
+    if (contactForm) {
+        contactForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const message = document.getElementById('message').value.trim();
+            
+            if (!name || !email || !message) {
+                showToast('Please fill all fields!', 'error');
+                return;
+            }
+            
+            const submitBtn = contactForm.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerText;
+            submitBtn.innerText = 'Sending...';
+            submitBtn.disabled = true;
+            
+            try {
+                const response = await fetch('/api/contact', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name, email, message })
+                });
+                const data = await response.json();
+                if (data.status === 'success') {
+                    showToast(data.message || 'Message sent successfully!', 'success');
+                    contactForm.reset();
+                } else {
+                    showToast('Something went wrong. Try again!', 'error');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                showToast('Network error. Please try again later.', 'error');
+            } finally {
+                submitBtn.innerText = originalText;
+                submitBtn.disabled = false;
+            }
+        });
+    }
+    
+    function showToast(message, type = 'success') {
+        const toast = document.createElement('div');
+        toast.className = 'toast';
+        toast.style.backgroundColor = type === 'success' ? '#10b981' : '#ef4444';
+        toast.innerText = message;
+        document.body.appendChild(toast);
+        setTimeout(() => {
+            toast.remove();
+        }, 3000);
+    }
+    
+    // Mobile hamburger menu
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('navLinks');
+    if (hamburger && navLinks) {
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+    }
+    
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                if (navLinks.classList.contains('active')) {
+                    navLinks.classList.remove('active');
+                }
+            }
+        });
+    });
+    
+    // Render projects when page loads
+    document.addEventListener('DOMContentLoaded', () => {
+        renderProjects();
+    });
+</script>
+</body>
+</html>
